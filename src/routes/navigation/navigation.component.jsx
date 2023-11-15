@@ -1,39 +1,44 @@
-import { useContext } from 'react';
-import { Link, Outlet } from 'react-router-dom';
-import { Fragment } from 'react';
-import { ReactComponent as CrwnLogo } from '../../assets/crown.svg';
-import { UserContext } from '../../contexts/user.contexts';
-import { signOutUser } from '../../utils/firebase/firebase.utils';
-import { CartContext } from '../../contexts/cart.contexts';
-import CartIcon from '../../components/cart-icon/cart-icon.component';
-import CartDropDown from '../../components/cart-dropdown/cart-dropdown.component';
+import { useContext } from "react";
+import { Link, Outlet } from "react-router-dom";
+import { Fragment } from "react";
+import { ReactComponent as CrwnLogo } from "../../assets/crown.svg";
+import { UserContext } from "../../contexts/user.contexts";
+import { signOutUser } from "../../utils/firebase/firebase.utils";
+import { CartContext } from "../../contexts/cart.contexts";
+import CartIcon from "../../components/cart-icon/cart-icon.component";
+import CartDropDown from "../../components/cart-dropdown/cart-dropdown.component";
+import {
+  NavigationContainer,
+  LogoContainer,
+  NavLinks,
+  NavLink,
+} from "./navigation.styles";
 
-import './navigation.styles.scss';
 const Navigation = () => {
-    const { currentUser } = useContext(UserContext);
-    const { isCartOpen } = useContext(CartContext);
-    return (
-        <Fragment>
-            <div className='navigation'>
-                <Link className='logo-container' to='/'>
-                    <CrwnLogo />
-                </Link>
-                <div className="nav-links-container">
-                    <Link className='nav-link' to='/shop'>
-                        SHOP
-                    </Link>
-                    {currentUser ? (<span className='nav-link' onClick={signOutUser}>SIGN OUT</span>) : (<Link className='nav-link' to='/sign-in'>
-                        SIGN IN
-                    </Link>)}
-                    <CartIcon />
-                </div>
-                {
-                    isCartOpen && <CartDropDown />
-                }
-            </div>
-            <Outlet />
-        </Fragment>
-    )
-}
+  const { currentUser } = useContext(UserContext);
+  const { isCartOpen } = useContext(CartContext);
+  return (
+    <Fragment>
+      <NavigationContainer>
+        <LogoContainer to="/">
+          <CrwnLogo />
+        </LogoContainer>
+        <NavLinks>
+          <NavLink to="/shop">SHOP</NavLink>
+          {currentUser ? (
+            <NavLink as="span" onClick={signOutUser}>
+              SIGN OUT
+            </NavLink>
+          ) : (
+            <NavLink to="/sign-in">SIGN IN</NavLink>
+          )}
+          <CartIcon />
+        </NavLinks>
+        {isCartOpen && <CartDropDown />}
+      </NavigationContainer>
+      <Outlet />
+    </Fragment>
+  );
+};
 
-export default Navigation
+export default Navigation;

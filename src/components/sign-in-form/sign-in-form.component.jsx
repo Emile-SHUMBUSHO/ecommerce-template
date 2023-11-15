@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { signInUserWithEmailAndPassword, signInWithGooglePopUp } from '../../utils/firebase/firebase.utils';
 import FormInput from '../form-input/form-input.component';
-import Button from '../button/button.component';
+import Button, {BUTTON_TYPE_CLASSES} from '../button/button.component';
 
 import './sign-in-form.styles.scss';
 
@@ -59,7 +59,7 @@ const SignInForm = () => {
           <Button type="submit" buttonType={'inverted'}>
             Sign In
           </Button>
-          <Button type="button" buttonType='google' onClick={signInWithGoogle}>
+          <Button type="button" buttonType={BUTTON_TYPE_CLASSES.google} onClick={signInWithGoogle}>
             Sign in with google
           </Button>
         </div>
